@@ -10,7 +10,7 @@ import java.util.Random;
 
 class PlayerLogic {
 
-    static final String VERSION = "Princess Bubblegum 1.1";
+    static final String VERSION = "Princess Bubblegum 1.2";
 
     public static int betRequest(JsonElement request)
     {
