@@ -9,7 +9,7 @@ import java.util.Random;
 
 class PlayerLogic {
 
-    static final String VERSION = "Passive grizly";
+    static final String VERSION = "Princess Bubblegum";
 
     public static int betRequest(JsonElement request)
     {
