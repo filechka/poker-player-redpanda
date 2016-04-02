@@ -30,6 +30,7 @@ class PlayerLogic {
             ArrayList<Card> ourCards = game.players.get(player_in_action).hole_cards;
             ArrayList cards = new ArrayList<>(game.community_cards);
             cards.addAll(ourCards);
+            RankingLogic.doGet(cards);
 
             final Card first = ourCards.get(0);
             final Card second = ourCards.get(1);
@@ -171,16 +172,7 @@ class Card {
 
         Card card = (Card) o;
 
-        if (rank != null ? !rank.equals(card.rank) : card.rank != null) return false;
-        return !(suit != null ? !suit.equals(card.suit) : card.suit != null);
-
-    }
-
-    @Override
-    public int hashCode() {
-        int result = rank != null ? rank.hashCode() : 0;
-        result = 31 * result + (suit != null ? suit.hashCode() : 0);
-        return result;
+        return rank.equals(card.rank);
     }
 
     @Override
