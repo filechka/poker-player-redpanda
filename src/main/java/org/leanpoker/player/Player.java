@@ -9,7 +9,7 @@ import java.util.Random;
 
 class PlayerLogic {
 
-    static final String VERSION = "grumpy space princess 1.5";
+    static final String VERSION = "grumpy space princess 1.6";
 
     public static int betRequest(JsonElement request)
     {
@@ -42,6 +42,22 @@ class PlayerLogic {
                     }
                     return callAmount(request);
                 }
+//                // All cards on the table has same sute
+//                boolean isSameSute = true;
+//
+//                String tableSute = table.get(table.size() - 1).sute;
+//
+//                for (int i = 0; i < table.size(); i++) {
+//                    if (table.get(i).suit != tableSute) {
+//                        isSameSute = false;
+//                        break;
+//                    }
+//                }
+//
+//                // Exit if win not possible
+//                if(isSameSute && first.suit != tableSute && second.suit != tableSute) {
+//                    return 0;
+//                }
             }
             else {
                 if (rankResponse.rank >= 1 ) {
