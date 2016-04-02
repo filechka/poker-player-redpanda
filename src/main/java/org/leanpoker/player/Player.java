@@ -31,10 +31,6 @@ class PlayerLogic {
             ArrayList cards = new ArrayList<>(game.community_cards);
             cards.addAll(ourCards);
 
-            if (shitOnTable(request, game, ourCards)) {
-                return 0;
-            }
-
             final Card first = ourCards.get(0);
             final Card second = ourCards.get(1);
 
