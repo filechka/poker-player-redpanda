@@ -45,12 +45,7 @@ class PlayerLogic {
                     if (table.get(i).equals(first)) return callAmount(request) + minimum_raise * 3;
                     if (table.get(i).equals(second)) return callAmount(request) + minimum_raise * 3;
                 }
-
-                for (int i = 0; i < table.size(); i++) {
-                    if (table.get(i).suit !) {
-
-                    }
-                }
+                
 
                 // All cards on the table has same sute
                 boolean isSameSute = true;
