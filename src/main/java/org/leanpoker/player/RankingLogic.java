@@ -12,35 +12,43 @@ import org.apache.http.impl.client.HttpClients;
 import org.apache.http.util.EntityUtils;
 
 import java.io.IOException;
+import java.net.URLEncoder;
 import java.util.ArrayList;
 
 public class RankingLogic
 {
 
-    public static RankResponse doGet(ArrayList<Card> cards) throws IOException {
-        Gson g = new Gson();
-        final CloseableHttpClient client = HttpClients.createDefault();
-        String s = g.toJson(cards);
-        HttpGet httpget = new HttpGet("http://rainman.leanpoker.org/rank?cards="+ s +"");
+    public static RankResponse doGet(ArrayList<Card> cards) {
+        try {
+            Gson g = new Gson();
+            final CloseableHttpClient client = HttpClients.createDefault();
+            String s = g.toJson(cards);
 
-        System.out.println("Executing request " + httpget.getRequestLine());
-        ResponseHandler<String> responseHandler = new ResponseHandler<String>() {
-            @Override
-            public String handleResponse(HttpResponse response) throws ClientProtocolException, IOException {
-                int status = response.getStatusLine().getStatusCode();
-                if (status >= 200 && status < 300) {
-                    HttpEntity entity = response.getEntity();
-                    return entity != null ? EntityUtils.toString(entity) : null;
-                } else {
-                    throw new ClientProtocolException("Unexpected response status: " + status);
+            HttpGet httpget = new HttpGet("http://rainman.leanpoker.org/rank?cards=" + URLEncoder.encode(s) + "");
+
+            System.out.println("Executing request " + httpget.getRequestLine());
+            ResponseHandler<String> responseHandler = new ResponseHandler<String>() {
+                @Override
+                public String handleResponse(HttpResponse response) throws ClientProtocolException, IOException {
+                    int status = response.getStatusLine().getStatusCode();
+                    if (status >= 200 && status < 300) {
+                        HttpEntity entity = response.getEntity();
+                        return entity != null ? EntityUtils.toString(entity) : null;
+                    } else {
+                        throw new ClientProtocolException("Unexpected response status: " + status);
+                    }
                 }
-            }
-        };
+            };
 
-        String responseBody = client.execute(httpget, responseHandler);
-        System.out.println("----------------------------------------");
-        System.out.println(responseBody);
+            String responseBody = client.execute(httpget, responseHandler);
+            System.out.println("----------------------------------------");
+            System.out.println(responseBody);
 
-        return g.fromJson(new JsonParser().parse(responseBody).getAsJsonObject(), RankResponse.class);
+            return g.fromJson(new JsonParser().parse(responseBody).getAsJsonObject(), RankResponse.class);
+        }catch (Exception e)
+        {
+            System.out.println(e);
+        }
+        return null;
     }
 }

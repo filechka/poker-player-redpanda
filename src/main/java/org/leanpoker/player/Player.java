@@ -4,13 +4,12 @@ import com.google.gson.Gson;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Random;
 
 class PlayerLogic {
 
-    static final String VERSION = "grumpy space princess 1.2";
+    static final String VERSION = "grumpy space princess 1.5";
 
     public static int betRequest(JsonElement request)
     {
@@ -30,6 +29,7 @@ class PlayerLogic {
             ArrayList<Card> ourCards = game.players.get(player_in_action).hole_cards;
             ArrayList cards = new ArrayList<>(game.community_cards);
             cards.addAll(ourCards);
+            RankingLogic.doGet(cards);
 
             final Card first = ourCards.get(0);
             final Card second = ourCards.get(1);
@@ -81,11 +81,10 @@ class PlayerLogic {
             }
 
 
-
         } catch (Exception e) {
             e.printStackTrace(); // hehehe
         }
-        return randExit(callAmount(request), 90);
+        return callAmount(request);
 
     }
 
@@ -102,12 +101,8 @@ class PlayerLogic {
     public static boolean shitOnTable(JsonElement request, Game game, ArrayList<Card> ourCards) {
 
         RankResponse r = null;
-        try {
-            r = RankingLogic.doGet(ourCards);
+        r = RankingLogic.doGet(ourCards);
 
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
         System.out.println(r);
 
         return r.rank == 0;
@@ -188,16 +183,7 @@ class Card {
 
         Card card = (Card) o;
 
-        if (rank != null ? !rank.equals(card.rank) : card.rank != null) return false;
-        return !(suit != null ? !suit.equals(card.suit) : card.suit != null);
-
-    }
-
-    @Override
-    public int hashCode() {
-        int result = rank != null ? rank.hashCode() : 0;
-        result = 31 * result + (suit != null ? suit.hashCode() : 0);
-        return result;
+        return rank.equals(card.rank);
     }
 
     @Override
