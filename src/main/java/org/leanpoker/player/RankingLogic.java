@@ -3,6 +3,7 @@ package org.leanpoker.player;
 import com.google.gson.Gson;
 import com.google.gson.JsonParser;
 import org.apache.http.HttpEntity;
+import org.apache.http.HttpResponse;
 import org.apache.http.client.ClientProtocolException;
 import org.apache.http.client.ResponseHandler;
 import org.apache.http.client.methods.HttpGet;
@@ -22,13 +23,16 @@ public class RankingLogic
         HttpGet httpget = new HttpGet("http://rainman.leanpoker.org/rank?cards=["+ cards.stream().map(g::toJson)+"]");
 
         System.out.println("Executing request " + httpget.getRequestLine());
-        ResponseHandler<String> responseHandler = response -> {
-            int status = response.getStatusLine().getStatusCode();
-            if (status >= 200 && status < 300) {
-                HttpEntity entity = response.getEntity();
-                return entity != null ? EntityUtils.toString(entity) : null;
-            } else {
-                throw new ClientProtocolException("Unexpected response status: " + status);
+        ResponseHandler<String> responseHandler = new ResponseHandler<String>() {
+            @Override
+            public String handleResponse(HttpResponse response) throws ClientProtocolException, IOException {
+                int status = response.getStatusLine().getStatusCode();
+                if (status >= 200 && status < 300) {
+                    HttpEntity entity = response.getEntity();
+                    return entity != null ? EntityUtils.toString(entity) : null;
+                } else {
+                    throw new ClientProtocolException("Unexpected response status: " + status);
+                }
             }
         };
 

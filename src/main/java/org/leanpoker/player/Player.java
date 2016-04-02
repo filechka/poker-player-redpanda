@@ -9,7 +9,7 @@ import java.util.Random;
 
 class PlayerLogic {
 
-    static final String VERSION = "Princess Bubblegum";
+    static final String VERSION = "Princess Bubblegum 1.1";
 
     public static int betRequest(JsonElement request)
     {
@@ -25,7 +25,7 @@ class PlayerLogic {
             final Game game = gson.fromJson(request, Game.class);
 
 
-            if (request.getAsJsonObject().get("rank").getAsInt() > 2) {
+            if (request.getAsJsonObject().get("rank").getAsInt() > 1) {
                 if (game.minimum_raise > players.get(player_in_action).getAsJsonObject().get("stack").getAsInt()/4) {
                         return 0;
                 }
