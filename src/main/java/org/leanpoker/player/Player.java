@@ -29,30 +29,50 @@ class PlayerLogic {
             ArrayList<Card> ourCards = game.players.get(player_in_action).hole_cards;
             ArrayList cards = new ArrayList<>(game.community_cards);
             cards.addAll(ourCards);
-            RankingLogic.doGet(cards);
+            final RankResponse rankResponse = RankingLogic.doGet(cards);
 
-            final Card first = ourCards.get(0);
-            final Card second = ourCards.get(1);
-
-            if (first.equals(second))  { // pair
-                return callAmount(request) + minimum_raise * 3;
-            }
-
-            if (request.getAsJsonObject().get("round").getAsInt() > 0) {
-                //flop and more
-                ArrayList table  = new ArrayList<>(game.community_cards);
-                for (int i = 0; i < table.size(); i++) {
-                    if (table.get(i).equals(first)) return callAmount(request) + minimum_raise * 3;
-                    if (table.get(i).equals(second)) return callAmount(request) + minimum_raise * 3;
+            if (request.getAsJsonObject().get("round").getAsInt() == 0) {
+                if (rankResponse.rank == 1 ) {
+                    // will add pair validation
+                    return callAmount(request)+ minimum_raise * 3;
                 }
-
+                else {
+                    if (request.getAsJsonObject().get("current_buy_in").getAsInt() > 200) {
+                        return 0;
+                    }
+                    return callAmount(request);
+                }
             }
-
-            // if big call o we will have small stack - out
-            if (game.current_buy_in > players.get(player_in_action).getAsJsonObject().get("stack").getAsInt()/3
-                    || players.get(player_in_action).getAsJsonObject().get("stack").getAsInt() - game.current_buy_in < 600) {
-                return 0;
+            else {
+                if (rankResponse.rank >= 1 ) {
+                    return callAmount(request) + minimum_raise * 2;
+                }
+                if (rankResponse.rank == 0 ) {
+                    return 0;
+                }
             }
+//            final Card first = ourCards.get(0);
+//            final Card second = ourCards.get(1);
+//
+//            if (first.equals(second))  { // pair
+//                return callAmount(request) + minimum_raise * 3;
+//            }
+//
+//            if (request.getAsJsonObject().get("round").getAsInt() > 0) {
+//                //flop and more
+//                ArrayList table  = new ArrayList<>(game.community_cards);
+//                for (int i = 0; i < table.size(); i++) {
+//                    if (table.get(i).equals(first)) return callAmount(request) + minimum_raise * 3;
+//                    if (table.get(i).equals(second)) return callAmount(request) + minimum_raise * 3;
+//                }
+//
+//            }
+//
+//            // if big call o we will have small stack - out
+//            if (game.current_buy_in > players.get(player_in_action).getAsJsonObject().get("stack").getAsInt()/3
+//                    || players.get(player_in_action).getAsJsonObject().get("stack").getAsInt() - game.current_buy_in < 600) {
+//                return 0;
+//            }
 
 
         } catch (Exception e) {
