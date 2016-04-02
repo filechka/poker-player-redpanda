@@ -46,6 +46,32 @@ class PlayerLogic {
                     if (table.get(i).equals(second)) return callAmount(request) + minimum_raise * 3;
                 }
 
+                for (int i = 0; i < table.size(); i++) {
+                    if (table.get(i).suit !) {
+
+                    }
+                }
+
+                // All cards on the table has same sute
+                boolean isSameSute = true;
+
+                String tableSute = table.get(table.size() - 1).sute;
+
+                for (int i = 0; i < table.size(); i++) {
+                    if (table.get(i).suit != tableSute) {
+                        isSameSute = false;
+                        break;
+                    }
+                }
+
+                // Exit if win not possible
+                if(isSameSute && first.suit != tableSute && second.suit != tableSute) {
+                    return 0;
+                }
+
+
+
+
             }
 
             // if big call o we will have small stack - out
