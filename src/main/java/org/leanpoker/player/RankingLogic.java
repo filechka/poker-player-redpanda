@@ -20,7 +20,12 @@ public class RankingLogic
     public static RankResponse doGet(ArrayList<Card> cards) throws IOException {
         Gson g = new Gson();
         final CloseableHttpClient client = HttpClients.createDefault();
-        HttpGet httpget = new HttpGet("http://rainman.leanpoker.org/rank?cards=["+ cards.stream().map(g::toJson)+"]");
+        String s = "";
+        for (Card c: cards)
+        {
+         s += g.toJson(c);
+        }
+        HttpGet httpget = new HttpGet("http://rainman.leanpoker.org/rank?cards=["+ s +"]");
 
         System.out.println("Executing request " + httpget.getRequestLine());
         ResponseHandler<String> responseHandler = new ResponseHandler<String>() {
