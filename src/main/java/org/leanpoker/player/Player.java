@@ -9,7 +9,7 @@ import java.util.Random;
 
 class PlayerLogic {
 
-    static final String VERSION = "grumpy space princess 1.3";
+    static final String VERSION = "grumpy space princess 1.5";
 
     public static int betRequest(JsonElement request)
     {
@@ -58,7 +58,7 @@ class PlayerLogic {
         } catch (Exception e) {
             e.printStackTrace(); // hehehe
         }
-        return randExit(callAmount(request), 90);
+        return callAmount(request);
 
     }
 
