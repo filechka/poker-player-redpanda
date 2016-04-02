@@ -44,7 +44,6 @@ class PlayerLogic {
                     return callAmount(request);
                 }
                 // All cards on the table has same sute
-                boolean isSameSute = true;
 
 //                final Card first = ourCards.get(0);
 //                final Card second = ourCards.get(1);
