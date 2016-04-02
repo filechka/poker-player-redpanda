@@ -45,24 +45,24 @@ class PlayerLogic {
                 // All cards on the table has same sute
                 boolean isSameSute = true;
 
-                final Card first = ourCards.get(0);
-                final Card second = ourCards.get(1);
-
-                ArrayList table  = new ArrayList<>(game.community_cards);
-
-                String tableSuit = table.get(0).suit;
-
-                for (int i = 0; i < table.size(); i++) {
-                    if (table.get(i).suit != tableSuit) {
-                        isSameSute = false;
-                        break;
-                    }
-                }
-
-                // Exit if win not possible
-                if(isSameSute && first.suit != tableSuit && second.suit != tableSuit) {
-                    return 0;
-                }
+//                final Card first = ourCards.get(0);
+//                final Card second = ourCards.get(1);
+//
+//                ArrayList table  = new ArrayList<>(game.community_cards);
+//
+//                String tableSuit = table.get(0).suit;
+//
+//                for (int i = 0; i < table.size(); i++) {
+//                    if (table.get(i).suit != tableSuit) {
+//                        isSameSute = false;
+//                        break;
+//                    }
+//                }
+//
+//                // Exit if win not possible
+//                if(isSameSute && first.suit != tableSuit && second.suit != tableSuit) {
+//                    return 0;
+//                }
             }
             else {
                 if (rankResponse.rank >= 1 ) {
