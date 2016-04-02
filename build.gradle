@@ -23,6 +23,7 @@ dependencies {
   compile 'org.jetbrains.kotlin:kotlin-stdlib:0.1-SNAPSHOT'
   compile 'org.wasabi:wasabi:0.1-SNAPSHOT'
   compile 'org.json:json:20141113'
+  compile "com.fasterxml.jackson.module:jackson-module-kotlin:2.7.1-2"
 }
 
 mainClassName = 'poker.PokerPackage'
