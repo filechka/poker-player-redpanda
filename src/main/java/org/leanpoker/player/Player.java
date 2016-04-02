@@ -6,6 +6,7 @@ import com.google.gson.JsonElement;
 
 import java.util.ArrayList;
 import java.util.Map;
+import java.util.Random;
 
 class PlayerLogic {
 
@@ -31,15 +32,21 @@ class PlayerLogic {
             if (first.equals(second))  { // pair
                 return request.getAsJsonObject().get("current_buy_in").getAsInt() -
                         players.get(player_in_action).getAsJsonObject().get("bet").getAsInt() + minimum_raise * 3;
-            } else {
-                return request.getAsJsonObject().get("current_buy_in").getAsInt() -
-                        players.get(player_in_action).getAsJsonObject().get("bet").getAsInt() + minimum_raise;
             }
-        } catch (Exception e)
-        {
+
+            if (game.minimum_raise > game.stack/3) {
+                Random rand = new Random();
+                int n = rand.nextInt(100);
+                if (n > 80) {
+                    return 0;
+                }
+            }
+
+            System.out.println(game);
+
+        } catch (Exception e) {
             e.printStackTrace(); // hehehe
         }
-
 
         return request.getAsJsonObject().get("current_buy_in").getAsInt() -
                 players.get(player_in_action).getAsJsonObject().get("bet").getAsInt();
@@ -54,6 +61,7 @@ class Game {
     ArrayList<Card> community_cards;
     ArrayList<Player> players;
     Integer minimum_raise;
+    Integer stack;
 
     @Override
     public String toString() {
