@@ -21,7 +21,7 @@ public class RankingLogic
         Gson g = new Gson();
         final CloseableHttpClient client = HttpClients.createDefault();
         String s = g.toJson(cards);
-        HttpGet httpget = new HttpGet("http://rainman.leanpoker.org/rank?cards=["+ s +"]");
+        HttpGet httpget = new HttpGet("http://rainman.leanpoker.org/rank?cards="+ s +"");
 
         System.out.println("Executing request " + httpget.getRequestLine());
         ResponseHandler<String> responseHandler = new ResponseHandler<String>() {

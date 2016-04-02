@@ -63,8 +63,7 @@ class PlayerLogic {
             e.printStackTrace(); // hehehe
         }
 
-        return request.getAsJsonObject().get("current_buy_in").getAsInt() -
-                players.get(player_in_action).getAsJsonObject().get("bet").getAsInt();
+        return 0;
 
     }
 
