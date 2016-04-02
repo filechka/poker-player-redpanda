@@ -141,3 +141,21 @@ class Card {
                 '}';
     }
 }
+
+class RankResponse
+{
+    Integer rank;
+    String value;
+    ArrayList<Card> cards;
+    ArrayList<Card> cards_used;
+
+    @Override
+    public String toString()
+    {
+        return "RankResponse{" +
+                "rank=" + rank +
+                ", cards=" + cards +
+                ", cards_used=" + cards_used +
+                '}';
+    }
+}
