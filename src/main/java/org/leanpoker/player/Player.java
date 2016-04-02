@@ -4,13 +4,12 @@ import com.google.gson.Gson;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Random;
 
 class PlayerLogic {
 
-    static final String VERSION = "grumpy space princess 1.2";
+    static final String VERSION = "grumpy space princess 1.3";
 
     public static int betRequest(JsonElement request)
     {
@@ -56,7 +55,6 @@ class PlayerLogic {
             }
 
 
-
         } catch (Exception e) {
             e.printStackTrace(); // hehehe
         }
@@ -77,12 +75,8 @@ class PlayerLogic {
     public static boolean shitOnTable(JsonElement request, Game game, ArrayList<Card> ourCards) {
 
         RankResponse r = null;
-        try {
-            r = RankingLogic.doGet(ourCards);
+        r = RankingLogic.doGet(ourCards);
 
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
         System.out.println(r);
 
         return r.rank == 0;
