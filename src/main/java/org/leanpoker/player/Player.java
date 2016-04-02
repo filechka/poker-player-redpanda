@@ -34,7 +34,7 @@ class PlayerLogic {
                         players.get(player_in_action).getAsJsonObject().get("bet").getAsInt() + minimum_raise * 3;
             }
 
-            if (game.minimum_raise > game.stack/3) {
+            if (game.minimum_raise > players.get(player_in_action).getAsJsonObject().get("stack").getAsInt()/3) {
                 Random rand = new Random();
                 int n = rand.nextInt(100);
                 if (n > 80) {
