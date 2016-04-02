@@ -10,7 +10,7 @@ import java.util.Random;
 
 class PlayerLogic {
 
-    static final String VERSION = "Flame Princess 1.9";
+    static final String VERSION = "grumpy space princess 1.0";
 
     public static int betRequest(JsonElement request)
     {
@@ -38,6 +38,16 @@ class PlayerLogic {
                 return callAmount(request) + minimum_raise * 3;
             }
 
+            if (request.getAsJsonObject().get("round").getAsInt() > 0) {
+                //flop and more
+                ArrayList table  = new ArrayList<>(game.community_cards);
+                for (int i = 0; i < table.size(); i++) {
+                    if (table.get(i).equals(first)) return callAmount(request) + minimum_raise * 3;
+                    if (table.get(i).equals(second)) return callAmount(request) + minimum_raise * 3;
+                }
+
+            }
+
             if (game.current_buy_in > players.get(player_in_action).getAsJsonObject().get("stack").getAsInt()/3) {
                 return randExit(callAmount(request), 20);
             }
@@ -59,7 +69,7 @@ class PlayerLogic {
             e.printStackTrace(); // hehehe
         }
 
-        return callAmount(request);
+        return randExit(callAmount(request), 90);
 
     }
 
