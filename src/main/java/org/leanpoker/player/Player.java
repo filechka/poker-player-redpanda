@@ -21,8 +21,13 @@ class PlayerLogic {
         final JsonArray players = request.getAsJsonObject().get("players").getAsJsonArray();
         Gson gson = new Gson();
 
-        final Game game = gson.fromJson(request, Game.class);
-        System.out.println(game);
+        try {
+            final Game game = gson.fromJson(request, Game.class);
+            System.out.println(game);
+        } catch (Exception e)
+        {
+            e.printStackTrace(); // hehehe
+        }
 
         return request.getAsJsonObject().get("current_buy_in").getAsInt() -
                 players.get(player_in_action).getAsJsonObject().get("bet").getAsInt();
