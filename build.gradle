@@ -3,7 +3,7 @@ apply plugin: 'war'
 apply plugin: 'tomcat'
 apply plugin: 'idea'
 
-sourceCompatibility = 1.7
+sourceCompatibility = 1.8
 version = '1.0'
 
 repositories {
