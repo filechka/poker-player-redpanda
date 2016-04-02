@@ -10,7 +10,7 @@ import java.util.Random;
 
 class PlayerLogic {
 
-    static final String VERSION = "Flame Princess 1.4";
+    static final String VERSION = "Flame Princess 1.5";
 
     public static int betRequest(JsonElement request)
     {
