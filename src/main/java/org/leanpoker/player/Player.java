@@ -29,10 +29,11 @@ class PlayerLogic {
             ArrayList<Card> ourCards = game.players.get(player_in_action).hole_cards;
             ArrayList cards = new ArrayList<>(game.community_cards);
             cards.addAll(ourCards);
-            final RankResponse rankResponse = RankingLogic.doGet(cards);
+            final Card first = ourCards.get(0);
+            final Card second = ourCards.get(1);
 
             if (request.getAsJsonObject().get("round").getAsInt() == 0) {
-                if (rankResponse.rank == 1 ) {
+                if (first.equals(second) ) {
                     // will add pair validation
                     return callAmount(request)+ minimum_raise * 3;
                 }
@@ -60,6 +61,7 @@ class PlayerLogic {
 //                }
             }
             else {
+                final RankResponse rankResponse = RankingLogic.doGet(cards);
                 if (rankResponse.rank >= 1 ) {
                     return callAmount(request) + minimum_raise * 2;
                 }
