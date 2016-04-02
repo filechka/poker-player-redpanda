@@ -25,6 +25,11 @@ class PlayerLogic {
         try {
             final Game game = gson.fromJson(request, Game.class);
 
+            if (request.getAsJsonObject().get("rank").getAsInt() < 2) {
+                if (game.minimum_raise > players.get(player_in_action).getAsJsonObject().get("stack").getAsInt()/3) {
+                        return 0;
+                }
+            }
             if (shitOnTable(request, game)) {
                 return 0;
             }
@@ -60,6 +65,7 @@ class PlayerLogic {
     }
 
     public boolean shitOnTable(JsonElement request, Game game) {
+        //ArrayList<Card> tableCards =
         return false;
     }
 }
