@@ -31,7 +31,7 @@ class PlayerLogic {
                 }
             }
 
-            if (request.getAsJsonObject().get("bet_index").getAsInt() < 3) {
+            if (request.getAsJsonObject().get("bet_index").getAsInt() > 3) {
                 if (game.minimum_raise > players.get(player_in_action).getAsJsonObject().get("stack").getAsInt()/3) {
                     return 0;
                 }
