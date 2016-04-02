@@ -10,7 +10,7 @@ import java.util.Random;
 
 class PlayerLogic {
 
-    static final String VERSION = "Default Java folding player";
+    static final String VERSION = "Passive grizly";
 
     public static int betRequest(JsonElement request)
     {
@@ -25,6 +25,23 @@ class PlayerLogic {
         try {
             final Game game = gson.fromJson(request, Game.class);
 
+            if (request.getAsJsonObject().get("rank").getAsInt() < 2) {
+                if (game.minimum_raise > players.get(player_in_action).getAsJsonObject().get("stack").getAsInt()/3) {
+                        return 0;
+                }
+            }
+
+            if (request.getAsJsonObject().get("bet_index").getAsInt() > 3) {
+                if (game.minimum_raise > players.get(player_in_action).getAsJsonObject().get("stack").getAsInt()/3) {
+                    return 0;
+                }
+            }
+
+
+            if (shitOnTable(request, game)) {
+                return 0;
+            }
+
             ArrayList<Card> ourCards = game.players.get(player_in_action).hole_cards;
             final Card first = ourCards.get(0);
             final Card second = ourCards.get(1);
@@ -34,7 +51,7 @@ class PlayerLogic {
                         players.get(player_in_action).getAsJsonObject().get("bet").getAsInt() + minimum_raise * 3;
             }
 
-            if (game.minimum_raise > game.stack/3) {
+            if (game.minimum_raise > players.get(player_in_action).getAsJsonObject().get("stack").getAsInt()/3) {
                 Random rand = new Random();
                 int n = rand.nextInt(100);
                 if (n > 80) {
@@ -53,6 +70,11 @@ class PlayerLogic {
     }
 
     public static void showdown(JsonElement game) {
+    }
+
+    public static boolean shitOnTable(JsonElement request, Game game) {
+        //ArrayList<Card> tableCards =
+        return false;
     }
 }
 
