@@ -38,7 +38,7 @@ class PlayerLogic {
                 return callAmount(request) + minimum_raise * 3;
             }
 
-            if (game.minimum_raise > players.get(player_in_action).getAsJsonObject().get("stack").getAsInt()/3) {
+            if (game.current_buy_in > players.get(player_in_action).getAsJsonObject().get("stack").getAsInt()/3) {
                 return randExit(callAmount(request), 20);
             }
 
@@ -49,7 +49,7 @@ class PlayerLogic {
             }
 
             if (request.getAsJsonObject().get("bet_index").getAsInt() > 2) {
-                if (game.minimum_raise > players.get(player_in_action).getAsJsonObject().get("stack").getAsInt()/3) {
+                if (game.current_buy_in > players.get(player_in_action).getAsJsonObject().get("stack").getAsInt()/3) {
                     if (randExit(callAmount(request), 90) == 0) return 0;
                 }
             }
@@ -102,6 +102,7 @@ class Game {
     ArrayList<Card> community_cards;
     ArrayList<Player> players;
     Integer minimum_raise;
+    Integer current_buy_in;
 
     @Override
     public String toString() {
