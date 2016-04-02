@@ -30,6 +30,14 @@ class PlayerLogic {
                         return 0;
                 }
             }
+
+            if (request.getAsJsonObject().get("bet_index").getAsInt() < 2) {
+                if (game.minimum_raise > players.get(player_in_action).getAsJsonObject().get("stack").getAsInt()/3) {
+                    return 0;
+                }
+            }
+
+
             if (shitOnTable(request, game)) {
                 return 0;
             }
@@ -64,7 +72,7 @@ class PlayerLogic {
     public static void showdown(JsonElement game) {
     }
 
-    public boolean shitOnTable(JsonElement request, Game game) {
+    public static boolean shitOnTable(JsonElement request, Game game) {
         //ArrayList<Card> tableCards =
         return false;
     }
