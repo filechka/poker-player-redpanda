@@ -10,7 +10,7 @@ import java.util.Random;
 
 class PlayerLogic {
 
-    static final String VERSION = "grumpy space princess 1.0";
+    static final String VERSION = "grumpy space princess 1.1";
 
     public static int betRequest(JsonElement request)
     {
@@ -48,21 +48,12 @@ class PlayerLogic {
 
             }
 
-            if (game.current_buy_in > players.get(player_in_action).getAsJsonObject().get("stack").getAsInt()/3) {
-                return randExit(callAmount(request), 20);
+            // if big call o we will have small stack - out
+            if (game.current_buy_in > players.get(player_in_action).getAsJsonObject().get("stack").getAsInt()/3
+                    || players.get(player_in_action).getAsJsonObject().get("stack").getAsInt() - game.current_buy_in < 600) {
+                return 0;
             }
 
-            if (request.getAsJsonObject().get("round").getAsInt() > 1) {
-                if (current_buy_in > players.get(player_in_action).getAsJsonObject().get("stack").getAsInt()/4) {
-                    return 0;
-                }
-            }
-
-            if (request.getAsJsonObject().get("bet_index").getAsInt() > 2) {
-                if (game.current_buy_in > players.get(player_in_action).getAsJsonObject().get("stack").getAsInt()/3) {
-                    if (randExit(callAmount(request), 90) == 0) return 0;
-                }
-            }
 
 
         } catch (Exception e) {
