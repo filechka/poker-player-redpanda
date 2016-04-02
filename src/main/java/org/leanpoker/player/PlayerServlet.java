@@ -30,7 +30,7 @@ public class PlayerServlet extends HttpServlet {
             PlayerLogic.showdown(new JsonParser().parse(gameState));
         }
         if (req.getParameter("action").equals("version")) {
-            resp.getWriter().print(Player.VERSION);
+            resp.getWriter().print(PlayerLogic.VERSION);
         }
     }
 }
