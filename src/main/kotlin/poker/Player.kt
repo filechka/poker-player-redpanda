@@ -7,7 +7,7 @@ class Player {
         if (Math.random() * 100 < 20) {
           return Math.floor(JSONObject.players filter {it.name="RedPanda"} it.stack/50)
         }
-        return 0
+        return 1
     }
 
     fun showdown() {
