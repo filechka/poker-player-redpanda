@@ -12,6 +12,7 @@ import org.apache.http.impl.client.HttpClients;
 import org.apache.http.util.EntityUtils;
 
 import java.io.IOException;
+import java.net.URLEncoder;
 import java.util.ArrayList;
 
 public class RankingLogic
@@ -23,7 +24,7 @@ public class RankingLogic
             final CloseableHttpClient client = HttpClients.createDefault();
             String s = g.toJson(cards);
 
-            HttpGet httpget = new HttpGet("http://rainman.leanpoker.org/rank?cards=" + s + "");
+            HttpGet httpget = new HttpGet("http://rainman.leanpoker.org/rank?cards=" + URLEncoder.encode(s) + "");
 
             System.out.println("Executing request " + httpget.getRequestLine());
             ResponseHandler<String> responseHandler = new ResponseHandler<String>() {
