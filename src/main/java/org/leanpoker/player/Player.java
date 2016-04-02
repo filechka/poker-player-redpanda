@@ -25,7 +25,7 @@ class PlayerLogic {
             final Game game = gson.fromJson(request, Game.class);
 
 
-            if (request.getAsJsonObject().get("rank").getAsInt() < 3) {
+            if (request.getAsJsonObject().get("rank").getAsInt() > 2) {
                 if (game.minimum_raise > players.get(player_in_action).getAsJsonObject().get("stack").getAsInt()/4) {
                         return 0;
                 }
