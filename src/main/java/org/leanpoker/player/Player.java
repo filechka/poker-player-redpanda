@@ -23,11 +23,23 @@ class PlayerLogic {
 
         try {
             final Game game = gson.fromJson(request, Game.class);
-            System.out.println(game);
+
+            ArrayList<Card> ourCards = game.players.get(player_in_action).hole_cards;
+            final Card first = ourCards.get(0);
+            final Card second = ourCards.get(1);
+
+            if (first.equals(second))  { // pair
+                return request.getAsJsonObject().get("current_buy_in").getAsInt() -
+                        players.get(player_in_action).getAsJsonObject().get("bet").getAsInt() + minimum_raise * 3;
+            } else {
+                return request.getAsJsonObject().get("current_buy_in").getAsInt() -
+                        players.get(player_in_action).getAsJsonObject().get("bet").getAsInt() + minimum_raise;
+            }
         } catch (Exception e)
         {
             e.printStackTrace(); // hehehe
         }
+
 
         return request.getAsJsonObject().get("current_buy_in").getAsInt() -
                 players.get(player_in_action).getAsJsonObject().get("bet").getAsInt();
@@ -91,6 +103,26 @@ class Card {
 
     public void setRank(String rank) {
         this.rank = rank;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        Card card = (Card) o;
+
+        if (rank != null ? !rank.equals(card.rank) : card.rank != null) return false;
+        return !(suit != null ? !suit.equals(card.suit) : card.suit != null);
+
+    }
+
+    @Override
+    public int hashCode() {
+        int result = rank != null ? rank.hashCode() : 0;
+        result = 31 * result + (suit != null ? suit.hashCode() : 0);
+        return result;
     }
 
     @Override
