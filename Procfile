@@ -1,1 +1,0 @@
-web: ./build/install/poker-player-kotlin/bin/poker-player-kotlin
