@@ -68,7 +68,6 @@ class PlayerLogic {
         } catch (Exception e) {
             e.printStackTrace(); // hehehe
         }
-
         return randExit(callAmount(request), 90);
 
     }
