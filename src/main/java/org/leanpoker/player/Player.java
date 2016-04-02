@@ -20,6 +20,8 @@ class PlayerLogic {
         Integer pot = request.getAsJsonObject().get("pot").getAsInt();
         Integer small_blind = request.getAsJsonObject().get("small_blind").getAsInt();
         final JsonArray players = request.getAsJsonObject().get("players").getAsJsonArray();
+        System.out.println(player_in_action);
+
         Gson gson = new Gson();
 
         try {
