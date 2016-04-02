@@ -5,7 +5,6 @@ import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 
 import java.util.ArrayList;
-import java.util.Map;
 import java.util.Random;
 
 class PlayerLogic {
@@ -25,6 +24,7 @@ class PlayerLogic {
         try {
             final Game game = gson.fromJson(request, Game.class);
 
+
             if (request.getAsJsonObject().get("rank").getAsInt() < 3) {
                 if (game.minimum_raise > players.get(player_in_action).getAsJsonObject().get("stack").getAsInt()/4) {
                         return 0;
@@ -43,6 +43,11 @@ class PlayerLogic {
             }
 
             ArrayList<Card> ourCards = game.players.get(player_in_action).hole_cards;
+            ArrayList cards = new ArrayList<>(game.community_cards);
+            cards.addAll(ourCards);
+            RankResponse r = RankingLogic.doGet( cards );
+            System.out.println(r);
+
             final Card first = ourCards.get(0);
             final Card second = ourCards.get(1);
 
