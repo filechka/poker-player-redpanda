@@ -10,7 +10,7 @@ import java.util.Random;
 
 class PlayerLogic {
 
-    static final String VERSION = "Default Java folding player";
+    static final String VERSION = "Passive grizly";
 
     public static int betRequest(JsonElement request)
     {
@@ -31,7 +31,7 @@ class PlayerLogic {
                 }
             }
 
-            if (request.getAsJsonObject().get("bet_index").getAsInt() < 2) {
+            if (request.getAsJsonObject().get("bet_index").getAsInt() < 3) {
                 if (game.minimum_raise > players.get(player_in_action).getAsJsonObject().get("stack").getAsInt()/3) {
                     return 0;
                 }
