@@ -10,7 +10,7 @@ import java.util.Random;
 
 class PlayerLogic {
 
-    static final String VERSION = "Princess Bubblegum 1.2";
+    static final String VERSION = "Princess Bubblegum 1.3";
 
     public static int betRequest(JsonElement request)
     {
@@ -108,7 +108,6 @@ class Game {
     ArrayList<Card> community_cards;
     ArrayList<Player> players;
     Integer minimum_raise;
-    Integer stack;
 
     @Override
     public String toString() {
