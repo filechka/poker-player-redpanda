@@ -23,10 +23,20 @@ class PlayerLogic {
 
         try {
             final Game game = gson.fromJson(request, Game.class);
+            game.setStack(players.get(player_in_action).getAsJsonObject().get("stack").getAsInt());
             System.out.println(game);
         } catch (Exception e)
         {
             e.printStackTrace(); // hehehe
+        }
+
+        if (game.minimum_raise > game.stack/3) {
+          Random rand = new Random();
+          int n = rand.nextInt(100);
+          if (n > 80)
+          {
+            return 0;
+          }
         }
 
         return request.getAsJsonObject().get("current_buy_in").getAsInt() -
@@ -42,6 +52,11 @@ class Game {
     ArrayList<Card> community_cards;
     ArrayList<Player> players;
     Integer minimum_raise;
+    Integer stack;
+
+    public void setStack(stack) {
+      this.stack = stack;
+    }
 
     @Override
     public String toString() {
