@@ -25,15 +25,15 @@ class PlayerLogic {
         try {
             final Game game = gson.fromJson(request, Game.class);
 
-            if (request.getAsJsonObject().get("rank").getAsInt() < 2) {
-                if (game.minimum_raise > players.get(player_in_action).getAsJsonObject().get("stack").getAsInt()/3) {
+            if (request.getAsJsonObject().get("rank").getAsInt() < 3) {
+                if (game.minimum_raise > players.get(player_in_action).getAsJsonObject().get("stack").getAsInt()/4) {
                         return 0;
                 }
             }
 
-            if (request.getAsJsonObject().get("bet_index").getAsInt() > 3) {
+            if (request.getAsJsonObject().get("bet_index").getAsInt() > 2) {
                 if (game.minimum_raise > players.get(player_in_action).getAsJsonObject().get("stack").getAsInt()/3) {
-                    return 0;
+                    if (randExit(1, 70) == 0) return 0;
                 }
             }
 
@@ -52,12 +52,10 @@ class PlayerLogic {
             }
 
             if (game.minimum_raise > players.get(player_in_action).getAsJsonObject().get("stack").getAsInt()/3) {
-                Random rand = new Random();
-                int n = rand.nextInt(100);
-                if (n > 80) {
-                    return 0;
-                }
+                return randExit(request.getAsJsonObject().get("current_buy_in").getAsInt() -
+                        players.get(player_in_action).getAsJsonObject().get("bet").getAsInt(), 20);
             }
+
 
             System.out.println(game);
 
@@ -67,6 +65,7 @@ class PlayerLogic {
 
         return request.getAsJsonObject().get("current_buy_in").getAsInt() -
                 players.get(player_in_action).getAsJsonObject().get("bet").getAsInt();
+
     }
 
     public static void showdown(JsonElement game) {
@@ -75,6 +74,15 @@ class PlayerLogic {
     public static boolean shitOnTable(JsonElement request, Game game) {
         //ArrayList<Card> tableCards =
         return false;
+    }
+
+    public static int randExit(int money, int perc) {
+        Random rand = new Random();
+        int n = rand.nextInt(100);
+        if (n < perc) {
+            return 0;
+        }
+        return money;
     }
 }
 
