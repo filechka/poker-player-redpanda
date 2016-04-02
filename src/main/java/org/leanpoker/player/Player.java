@@ -9,7 +9,7 @@ import java.util.Random;
 
 class PlayerLogic {
 
-    static final String VERSION = "grumpy space princess 1.7";
+    static final String VERSION = "grumpy space princess 1.8";
 
     public static int betRequest(JsonElement request)
     {
