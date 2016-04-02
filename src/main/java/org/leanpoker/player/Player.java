@@ -10,7 +10,7 @@ import java.util.Random;
 
 class PlayerLogic {
 
-    static final String VERSION = "Princess Bubblegum 1.3";
+    static final String VERSION = "Flame Princess 1.4";
 
     public static int betRequest(JsonElement request)
     {
@@ -24,50 +24,49 @@ class PlayerLogic {
 
         Gson gson = new Gson();
 
-        try {
-            final Game game = gson.fromJson(request, Game.class);
-            System.out.println(game);
-            ArrayList<Card> ourCards = game.players.get(player_in_action).hole_cards;
-            ArrayList cards = new ArrayList<>(game.community_cards);
-            cards.addAll(ourCards);
+        return players.get(player_in_action).getAsJsonObject().get("stack").getAsInt();
 
-            if (shitOnTable(request, game, ourCards)) {
-                return 0;
-            }
-
-
-
-
-            final Card first = ourCards.get(0);
-            final Card second = ourCards.get(1);
-
-            if (first.equals(second))  { // pair
-                return callAmount(request) + minimum_raise * 3;
-            }
-
-            if (game.minimum_raise > players.get(player_in_action).getAsJsonObject().get("stack").getAsInt()/3) {
-                return randExit(callAmount(request), 20);
-            }
-
-            if (request.getAsJsonObject().get("round").getAsInt() > 1) {
-                if (current_buy_in > players.get(player_in_action).getAsJsonObject().get("stack").getAsInt()/4) {
-                    return 0;
-                }
-            }
-
-            if (request.getAsJsonObject().get("bet_index").getAsInt() > 2) {
-                if (game.minimum_raise > players.get(player_in_action).getAsJsonObject().get("stack").getAsInt()/3) {
-                    if (randExit(callAmount(request), 90) == 0) return 0;
-                }
-            }
-
-
-        } catch (Exception e) {
-            e.printStackTrace(); // hehehe
-        }
-
-        return request.getAsJsonObject().get("current_buy_in").getAsInt() -
-                players.get(player_in_action).getAsJsonObject().get("bet").getAsInt();
+//        try {
+//            final Game game = gson.fromJson(request, Game.class);
+//            System.out.println(game);
+//            ArrayList<Card> ourCards = game.players.get(player_in_action).hole_cards;
+//            ArrayList cards = new ArrayList<>(game.community_cards);
+//            cards.addAll(ourCards);
+//
+//            if (shitOnTable(request, game, ourCards)) {
+//                return 0;
+//            }
+//
+//            final Card first = ourCards.get(0);
+//            final Card second = ourCards.get(1);
+//
+//            if (first.equals(second))  { // pair
+//                return callAmount(request) + minimum_raise * 3;
+//            }
+//
+//            if (game.minimum_raise > players.get(player_in_action).getAsJsonObject().get("stack").getAsInt()/3) {
+//                return randExit(callAmount(request), 20);
+//            }
+//
+//            if (request.getAsJsonObject().get("round").getAsInt() > 1) {
+//                if (current_buy_in > players.get(player_in_action).getAsJsonObject().get("stack").getAsInt()/4) {
+//                    return 0;
+//                }
+//            }
+//
+//            if (request.getAsJsonObject().get("bet_index").getAsInt() > 2) {
+//                if (game.minimum_raise > players.get(player_in_action).getAsJsonObject().get("stack").getAsInt()/3) {
+//                    if (randExit(callAmount(request), 90) == 0) return 0;
+//                }
+//            }
+//
+//
+//        } catch (Exception e) {
+//            e.printStackTrace(); // hehehe
+//        }
+//
+//        return request.getAsJsonObject().get("current_buy_in").getAsInt() -
+//                players.get(player_in_action).getAsJsonObject().get("bet").getAsInt();
 
     }
 
