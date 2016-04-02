@@ -59,7 +59,7 @@ class PlayerLogic {
             e.printStackTrace(); // hehehe
         }
 
-        return callAmount(request);
+        return 0;
 
     }
 
