@@ -25,6 +25,10 @@ class PlayerLogic {
         try {
             final Game game = gson.fromJson(request, Game.class);
 
+            if (shitOnTable(request, game)) {
+                return 0;
+            }
+
             ArrayList<Card> ourCards = game.players.get(player_in_action).hole_cards;
             final Card first = ourCards.get(0);
             final Card second = ourCards.get(1);
@@ -53,6 +57,10 @@ class PlayerLogic {
     }
 
     public static void showdown(JsonElement game) {
+    }
+
+    public boolean shitOnTable(JsonElement request, Game game) {
+        return false;
     }
 }
 
