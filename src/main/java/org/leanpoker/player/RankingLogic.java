@@ -23,7 +23,7 @@ public class RankingLogic
         String s = "";
         for (Card c: cards)
         {
-         s += g.toJson(c);
+         s += g.toJson(c) + ",";
         }
         HttpGet httpget = new HttpGet("http://rainman.leanpoker.org/rank?cards=["+ s +"]");
 
